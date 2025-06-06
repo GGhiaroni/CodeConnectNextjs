@@ -18,10 +18,21 @@ const post = {
   },
 };
 
-export default function Home() {
+async function getAllPosts() {
+  const response = await fetch("http://localhost:3042/posts");
+  if (!response.ok) {
+    console.log("Houve um problema ao tentar acessar os posts.");
+  }
+  return response.json();
+}
+
+export default async function Home() {
+  const posts = await getAllPosts();
   return (
     <main>
-      <CardPost post={post} />
+      {posts.map((post) => (
+        <CardPost post={post} key={post.id} />
+      ))}
     </main>
   );
 }
