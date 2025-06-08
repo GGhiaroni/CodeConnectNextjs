@@ -2,8 +2,10 @@ import { CardPost } from "@/components/CardPost";
 import logger from "@/logger";
 import "./globals.css";
 
-async function getAllPosts() {
-  const response = await fetch("http://localhost:3042/posts");
+async function getAllPosts(page) {
+  const response = await fetch(
+    `http://localhost:3042/posts?_page=${page}&_per_page=6`
+  );
   if (!response.ok) {
     logger.error("Houve um problema ao tentar acessar os posts.");
   }
@@ -12,7 +14,7 @@ async function getAllPosts() {
 }
 
 export default async function Home() {
-  const posts = await getAllPosts();
+  const { data: posts } = await getAllPosts(1);
   return (
     <main className="grid">
       {posts.map((post) => (
