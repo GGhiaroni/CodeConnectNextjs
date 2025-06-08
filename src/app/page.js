@@ -14,12 +14,14 @@ async function getAllPosts(page) {
 }
 
 export default async function Home() {
-  const { data: posts } = await getAllPosts(1);
+  const { data: posts, prev, next } = await getAllPosts(1);
   return (
-    <main className="grid">
+    <main className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6">
       {posts.map((post) => (
         <CardPost post={post} key={post.id} />
       ))}
+      {prev && <a href={`/?page=${prev}`}>Página anterior</a>}
+      {next && <a href={`/?page=${next}`}>Próxima página</a>}
     </main>
   );
 }
