@@ -9,6 +9,7 @@ async function getAllPosts(page) {
   );
   if (!response.ok) {
     logger.error("Houve um problema ao tentar acessar os posts.");
+    return [];
   }
   logger.info("Posts obtidos com sucesso.");
   return response.json();
@@ -22,8 +23,16 @@ export default async function Home({ searchParams }) {
       {posts.map((post) => (
         <CardPost post={post} key={post.id} />
       ))}
-      {prev && <Link href={`/?page=${prev}`}>Página anterior</Link>}
-      {next && <Link href={`/?page=${next}`}>Próxima página</Link>}
+      {prev && (
+        <Link className="link-paginacao" href={`/?page=${prev}`}>
+          Página anterior
+        </Link>
+      )}
+      {next && (
+        <Link className="link-paginacao" href={`/?page=${next}`}>
+          Próxima página
+        </Link>
+      )}
     </main>
   );
 }

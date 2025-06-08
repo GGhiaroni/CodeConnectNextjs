@@ -22,3 +22,25 @@ body {
 .main-content {
   flex-grow: 1;
 }
+
+a {
+  color: #81fe88;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  text-decoration-line: underline;
+}
+
+a:visited {
+  color: #81fe88;
+}
+
+.link-paginacao {
+  @apply text-center grow my-0 mx-2;
+}
+
+.link-post {
+  text-decoration: none;
+  cursor: pointer;
+}
