@@ -1,5 +1,6 @@
 import { CardPost } from "@/components/CardPost";
 import logger from "@/logger";
+import Link from "next/link";
 import "./globals.css";
 
 async function getAllPosts(page) {
@@ -13,15 +14,16 @@ async function getAllPosts(page) {
   return response.json();
 }
 
-export default async function Home() {
-  const { data: posts, prev, next } = await getAllPosts(1);
+export default async function Home({ searchParams }) {
+  const paginaAtual = searchParams?.page || 1;
+  const { data: posts, prev, next } = await getAllPosts(paginaAtual);
   return (
     <main className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6">
       {posts.map((post) => (
         <CardPost post={post} key={post.id} />
       ))}
-      {prev && <a href={`/?page=${prev}`}>Página anterior</a>}
-      {next && <a href={`/?page=${next}`}>Próxima página</a>}
+      {prev && <Link href={`/?page=${prev}`}>Página anterior</Link>}
+      {next && <Link href={`/?page=${next}`}>Próxima página</Link>}
     </main>
   );
 }
